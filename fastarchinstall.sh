@@ -64,18 +64,11 @@ sed -i "s/^GRUB_GFXMODE=auto$/GRUB_GFXMODE=1920x1080/" /etc/default/grub
 sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
-#mount /home to a different partition
-#mkdir /home
-#mount /dev/nvme0n1p4 /home
-
-#automount drives on boot
-#echo "UUID=
-
 #last install of needed tools
 pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome ufw
 
 systemctl enable NetworkManager
-systemctl enable gdm\
+systemctl enable gdm
 scriptname="ArchInstallPart3"
 sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname.sh
 chmod +x /mnt/$scriptname.sh
@@ -84,3 +77,6 @@ chmod +x /mnt/$scriptname.sh
 #post install / reboot
 doas grub-mkconfig -o /boot/grub/grub.cfg
 #mount /dev/nvme1n1p4 /home
+
+
+#download dotfiles
