@@ -5,22 +5,17 @@ sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 
 loadkeys us #or uk etc.
 timedatectl set-ntp true
-#sleep 5
 
 mkfs.fat -F 32 /dev/nvme0n1p1
 mkfs.ext4 /dev/nvme0n1p2
 #home partition below
 # mkfs.ext4 /dev/nvme0n1p3 
 echo "partitions written"
-sleep 1
 mount /dev/nvme0n1p2 /mnt
 
 #installing system
 pacstrap -K /mnt base linux linux-firmware
-
 genfstab -U /mnt >> /mnt/etc/fstab
-
-'
 
 sed '1,/^#script2$/d' `basename $0` > /mnt/enryu_script2.sh
 chmod +x /mnt/enryu_script2.sh
@@ -71,6 +66,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #mount /home to a different partition
 mkdir /home
 mount /dev/nvme0n1p3 /home
+
+#automount drives on boot
+#echo "UUID=
 
 #last install of needed tools
 pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome
