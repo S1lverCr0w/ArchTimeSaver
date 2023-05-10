@@ -79,4 +79,4 @@ doas grub-mkconfig -o /boot/grub/grub.cfg
 #mount /dev/nvme1n1p4 /home
 
 
-#download dotfiles
+#download dotfiles 
