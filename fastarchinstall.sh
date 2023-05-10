@@ -17,9 +17,10 @@ mount /dev/nvme0n1p2 /mnt
 pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
-sed '1,/^#script2$/d' `basename $0` > /mnt/enryu_script2.sh
-chmod +x /mnt/enryu_script2.sh
-arch-chroot /mnt ./enryu_script2.sh
+scriptname = "ArchInstallPart2"
+sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname.sh
+chmod +x /mnt/$scriptname.sh
+arch-chroot /mnt ./$scriptname.sh
 exit
 
 #script2
@@ -34,7 +35,7 @@ echo "insert hostname / pc name"
 read hostname
 echo $hostname > /etc/hostname
 echo "127.0.0.1		localhost" >> /etc/hosts
-echo "::1		      localhost" >> /etc/hosts
+echo "::1		        localhost" >> /etc/hosts
 echo "127.0.1.1		$hostname.localdomain $hostname" >> /etc/hosts
 mkinitcpio -P
 
@@ -59,20 +60,22 @@ mkdir /boot/WINDOWS
 mount /dev/nvme1n1p3 /boot/WINDOWS
 
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
-sed -i "s/^GRUB_GFXMODE=auto$/GRUBGFXMODE=1920x1080/" /etc/default/grub
+sed -i "s/^GRUB_GFXMODE=auto$/GRUB_GFXMODE=1920x1080/" /etc/default/grub
 sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #mount /home to a different partition
-mkdir /home
-mount /dev/nvme0n1p3 /home
+#mkdir /home
+#mount /dev/nvme0n1p3 /home
 
 #automount drives on boot
 #echo "UUID=
 
 #last install of needed tools
-pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome
+pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome ufw
 
 systemctl enable NetworkManager
 systemctl enable gdm
+
+grub-mkconfig -o /boot/grub/grub.cfg
 
