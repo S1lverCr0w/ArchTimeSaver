@@ -1,8 +1,5 @@
 #!/bin/bash
 
-hostname="EnryuL"
-
-: '
 #Start script
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 
@@ -38,6 +35,8 @@ hwclock --sytohc
 echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 
+echo "insert hostname / pc name"
+read hostname
 echo $hostname > /etc/hostname
 echo "127.0.0.1		localhost" >> /etc/hosts
 echo "::1		localhost" >> /etc/hosts
@@ -55,7 +54,7 @@ passwd $username
 usermod -aG wheel,audio,video,storage $username
 
 #install following packages
-pacman -S --noconfirm doas grub efibootmgr os-prober dosfstools mtools
+pacman -S --noconfirm doas grub efibootmgr os-prober
 echo "permit $username as root" > /etc/doas.conf
 mkdir /boot/EFI
 mount /dev/nvme0n1p1 /boot/EFI
@@ -65,12 +64,17 @@ mkdir /boot/WINDOWS
 mount /dev/nvme1n1p3 /boot/WINDOWS
 
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+sed -i "s/^GRUB_GFXMODE=auto$/GRUBGFXMODE=1920x1080/" /etc/default/grub
+sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
+#mount /home to a different partition
+mkdir /home
+mount /dev/nvme0n1p3 /home
+
 #last install of needed tools
-pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome xorg
+pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome
 
 systemctl enable NetworkManager
 systemctl enable gdm
 
-exit
