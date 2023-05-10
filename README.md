@@ -1,0 +1,2 @@
+# ArchTimeSaver
+Clean arch install
