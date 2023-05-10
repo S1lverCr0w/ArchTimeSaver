@@ -34,7 +34,7 @@ echo "insert hostname / pc name"
 read hostname
 echo $hostname > /etc/hostname
 echo "127.0.0.1		localhost" >> /etc/hosts
-echo "::1		localhost" >> /etc/hosts
+echo "::1		      localhost" >> /etc/hosts
 echo "127.0.1.1		$hostname.localdomain $hostname" >> /etc/hosts
 mkinitcpio -P
 
@@ -49,7 +49,7 @@ passwd $username
 usermod -aG wheel,audio,video,storage $username
 
 #install following packages
-pacman -S --noconfirm doas grub efibootmgr os-prober
+pacman -S --noconfirm doas grub efibootmgr os-prober dosfstools mtools
 echo "permit $username as root" > /etc/doas.conf
 mkdir /boot/EFI
 mount /dev/nvme0n1p1 /boot/EFI
