@@ -7,18 +7,20 @@ sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
 loadkeys us #or uk etc.
 timedatectl set-ntp true
 
+#Filesystem formatting.
 mkfs.fat -F 32 /dev/nvme0n1p1
 mkfs.ext4 /dev/nvme0n1p2
-#home partition below
+#home partition below if needed
 # mkfs.ext4 /dev/nvme0n1p3 
-echo "partitions written"
+
+#Mount home partition Important
 mount /dev/nvme0n1p2 /mnt
 
 #installing system
 pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
-scriptname = "ArchInstallPart2"
+scriptname = "Arch_InstallPart2"
 sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname.sh
 chmod +x /mnt/$scriptname.sh
 arch-chroot /mnt ./$scriptname.sh
@@ -71,9 +73,9 @@ pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome u
 
 systemctl enable NetworkManager
 systemctl enable gdm
-scriptname="ArchInstallPart3"
-sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname.sh
-chmod +x /mnt/$scriptname.sh
+scriptname3="Arch_InstallPart3"
+sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname3.sh
+chmod +x /mnt/$scriptname3.sh
 
 #part3
 #post install / reboot
