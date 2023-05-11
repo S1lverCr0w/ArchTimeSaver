@@ -2,6 +2,7 @@
 
 #Start script
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
 
 loadkeys us #or uk etc.
 timedatectl set-ntp true
@@ -26,6 +27,7 @@ exit
 #script2
 pacman -S --noconfirm sed
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
 ln -sf /usr/share/zoneinfo/Europe/Dublin /etc/localtime
 hwclock --sytohc
 echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
@@ -75,7 +77,7 @@ chmod +x /mnt/$scriptname.sh
 
 #part3
 #post install / reboot
-doas grub-mkconfig -o /boot/grub/grub.cfg
+grub-mkconfig -o /boot/grub/grub.cfg
 #mount /dev/nvme1n1p4 /home
 
 
