@@ -73,6 +73,8 @@ pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome u
 
 systemctl enable NetworkManager
 systemctl enable gdm
+systemctl enable ufw
+systemctl enable fstrim.timer
 scriptname3="Arch_InstallPart3"
 sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname3.sh
 chmod +x /mnt/$scriptname3.sh
