@@ -4,6 +4,10 @@ A very small and fast Arch Linux (UEFI) installer.
 \
 \
 \
+\
+\
+\
+\
 I beleive the script is readable and very efficient. 
 It install the base system and Gnome DE.
 \
