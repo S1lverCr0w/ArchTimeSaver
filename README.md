@@ -18,7 +18,7 @@ as partitioning is based on personal preference.
 \
 \
 \
-The scrip is oriented to dualbooting a second OS (Windows in this case).
+The scrip is oriented on dualbooting a second OS (Windows in this case).
 \
 \
 \
