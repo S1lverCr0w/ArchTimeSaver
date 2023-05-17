@@ -26,6 +26,8 @@ The scrip is oriented to dualbooting a second OS (Windows in this case).
 To download this script to the Arch Installation USB the "$curl" command can be used:
 <pre>$ curl https://raw.githubusercontent.com/S1lverCr0w/ArchTimeSaver/main/arch_install.sh > arch_installscript.sh</pre> 
 \
+To make the file executable use:
+<pre>$ chmod +x arch_installscript.sh</pre>
 \
 \
 \
