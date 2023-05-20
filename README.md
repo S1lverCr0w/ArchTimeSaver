@@ -4,8 +4,10 @@ A very small and fast Arch Linux (UEFI) installer.
 \
 \
 \
+\
 I beleive the script is readable and very efficient. 
 It install the base system and Gnome DE.
+\
 \
 \
 \
@@ -16,15 +18,16 @@ as partitioning is based on personal preference.
 \
 \
 \
-The scrip is oriented to dualbooting a second OS (Windows in this case).
+The scrip is oriented on dualbooting a second OS (Windows in this case).
 \
 \
 \
 \
 To download this script to the Arch Installation USB the "$curl" command can be used:
-<pre>$ curl https://raw.githubusercontent.com/S1lverCr0w/ArchTimeSaver/main/arch_install.sh
-> arch_installscript.sh</pre> 
+<pre>$ curl https://raw.githubusercontent.com/S1lverCr0w/ArchTimeSaver/main/arch_install.sh > arch_installscript.sh</pre> 
 \
+To make the file executable use:
+<pre>$ chmod +x arch_installscript.sh</pre>
 \
 \
 \
