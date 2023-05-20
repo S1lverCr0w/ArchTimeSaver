@@ -30,6 +30,7 @@ exit
 pacman -S --noconfirm sed
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
+sed -i 's/^#MAKEFLAGS="-j2"$/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
 ln -sf /usr/share/zoneinfo/Europe/Dublin /etc/localtime
 hwclock --sytohc
 echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
@@ -85,4 +86,5 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #mount /dev/nvme1n1p4 /home
 
 
-#download dotfiles 
+#download dotfiles wip
+
