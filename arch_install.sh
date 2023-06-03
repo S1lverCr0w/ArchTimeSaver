@@ -31,6 +31,7 @@ pacman -S --noconfirm sed
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
 sed -i 's/^#MAKEFLAGS="-j2"$/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
+sed -i 's/^#VerbosePkgLists$/VerbosePkgLists/' /etc/pacman.conf
 ln -sf /usr/share/zoneinfo/Europe/Dublin /etc/localtime
 hwclock --sytohc
 echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
