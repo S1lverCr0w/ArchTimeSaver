@@ -89,8 +89,8 @@ cd paru
 makepkg -si
 cd ..
 rm -rf paru
-sed -i "s/^#[bin] = 5$/[bin]/" /etc/paru.conf
-sed -i "s/^#Sudo = doas = 5$/Sudo =doas/" /etc/paru.conf
+sed -i "s/^#[bin]/[bin]/" /etc/paru.conf
+sed -i "s/^#Sudo/Sudo/" /etc/paru.conf
 
 systemctl enable NetworkManager
 systemctl enable gdm
