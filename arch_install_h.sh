@@ -74,7 +74,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome ufw
 
 systemctl enable NetworkManager
-systemctl enable gdm
+#systemctl enable gdm
 systemctl enable ufw
 systemctl enable fstrim.timer
 scriptname3="Arch_InstallPart3"

@@ -4,17 +4,25 @@
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
 
-loadkeys us #or uk etc.
+loadkeys us #or uk etc
 timedatectl set-ntp true
 
-#Filesystem formatting.
+#Filesystem formatting
 mkfs.fat -F 32 /dev/nvme0n1p1
 mkfs.ext4 /dev/nvme0n1p2
 #home partition below if needed
 # mkfs.ext4 /dev/nvme0n1p3 
 
-#Mount home partition Important
+#Mount root and home partition --Important--
 mount /dev/nvme0n1p2 /mnt
+mkdir /mnt/home
+mount /dev/nvme0n1p4 /mnt/home
+
+#Mount extra partitions WIP
+#mkdir /mnt/run/media/..
+#mount /dev/nvme1n1p2 /mnt/run/media/..
+#mkdir /mnt/run/media/..
+#mount /mnt/run/media/..
 
 #installing system
 pacstrap -K /mnt base linux linux-firmware
@@ -32,6 +40,8 @@ sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
 sed -i 's/^#MAKEFLAGS="-j2"$/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
 sed -i 's/^#VerbosePkgLists$/VerbosePkgLists/' /etc/pacman.conf
+
+# Set according to your region
 ln -sf /usr/share/zoneinfo/Europe/Dublin /etc/localtime
 hwclock --sytohc
 echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
@@ -55,7 +65,7 @@ echo "set password for $username"
 passwd $username
 usermod -aG wheel,audio,video,storage $username
 
-#install following packages
+#install following packages 
 pacman -S --noconfirm doas grub efibootmgr os-prober dosfstools mtools
 echo "permit $username as root" > /etc/doas.conf
 mkdir /boot/EFI
@@ -71,21 +81,31 @@ sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/de
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #last install of needed tools
-pacman -S --noconfirm --needed networkmanager nano git alacritty firefox gnome ufw
+pacman -S --noconfirm --needed networkmanager nano git rustup alacritty firefox gnome ufw
+
+#install paru
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+cd ..
+rm -rf paru
 
 systemctl enable NetworkManager
 systemctl enable gdm
 systemctl enable ufw
 systemctl enable fstrim.timer
-scriptname3="Arch_InstallPart3"
+
+
+: '
+
+scriptname3="Arch_InstallPart3" # WIP
 sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname3.sh
 chmod +x /mnt/$scriptname3.sh
 
 #part3
 #post install / reboot
 grub-mkconfig -o /boot/grub/grub.cfg
-#mount /dev/nvme1n1p4 /home
-
-
+#mount /dev/nvme1n1p4 /mnt/home
 #download dotfiles wip
 
+'
