@@ -6,12 +6,13 @@ A very small and fast Arch Linux (UEFI) installer.
 \
 \
 I beleive the script is readable and very efficient. 
-It install the base system and Gnome DE.
+It installs the base system and Gnome DE.
 \
 \
 \
 \
 \
+##Warning!!
 Partitioning is left to the user before running the script,
 as partitioning is based on personal preference.
 \
@@ -28,6 +29,9 @@ To download this script to the Arch Installation USB the "$curl" command can be 
 \
 To make the file executable use:
 <pre>$ chmod +x arch_installscript.sh</pre>
+\
+To run the script run:
+<pre>$ ./arch_installscript.sh</pre>
 \
 \
 \
