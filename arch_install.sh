@@ -35,7 +35,7 @@ arch-chroot /mnt ./$scriptname.sh
 exit
 
 #script2
-pacman -S --noconfirm sed
+pacman -S --noconfirm sed linux-lts
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
 sed -i 's/^#MAKEFLAGS="-j2"$/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
@@ -78,6 +78,7 @@ mount /dev/nvme1n1p3 /boot/WINDOWS
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 sed -i "s/^GRUB_GFXMODE=auto$/GRUB_GFXMODE=1920x1080/" /etc/default/grub
 sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
+sed -i 's/^GRUB_DEFAULT=0$/GRUB_DEFAULT="1>2"/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #last install of needed tools
