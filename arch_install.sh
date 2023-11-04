@@ -28,7 +28,7 @@ mount /dev/nvme0n1p4 /mnt/home
 pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
-scriptname = "Arch_InstallPart2"
+scriptname="Arch_InstallPart2"
 sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname.sh
 chmod +x /mnt/$scriptname.sh
 arch-chroot /mnt ./$scriptname.sh
