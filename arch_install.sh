@@ -87,6 +87,7 @@ pacman -S --noconfirm --needed networkmanager nano git rustup alacritty firefox 
 pacman -S --noconfirm --needed autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
 # Rustup init (not sure but it was needed)
 rustup default stable
+pacman -S --noconfirm --needed btop 
 
 #install paru
 git clone https://aur.archlinux.org/paru.git
