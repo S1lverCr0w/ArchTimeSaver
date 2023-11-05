@@ -13,7 +13,6 @@ It installs the base system and Gnome DE.
 Partitioning is left to the user before running the script,
 as partitioning is based on personal preference.
 \
-\
 Also make sure to edit the script with the apropriate partition paths before running it. 
 \
 \
