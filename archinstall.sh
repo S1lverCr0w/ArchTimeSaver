@@ -101,7 +101,9 @@ sed -i "s/^#Sudo/Sudo/" /etc/paru.conf
 systemctl enable NetworkManager
 systemctl enable gdm
 systemctl enable ufw
+ufw enable
 systemctl enable fstrim.timer
+
 
 
 : '
