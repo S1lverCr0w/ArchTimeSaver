@@ -6,7 +6,9 @@ A very small and fast Arch Linux (UEFI) installer.
 \
 \
 I beleive the script is readable and very efficient. 
-It installs the base system and Gnome DE.
+It installs the base system and Gnome DE
+\
+\
 \
 ### Warning!!
 Partitioning is left to the user before running the script,
