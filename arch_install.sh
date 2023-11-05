@@ -11,7 +11,7 @@ timedatectl set-ntp true
 mkfs.fat -F 32 /dev/nvme0n1p1
 mkfs.ext4 /dev/nvme0n1p2
 #home partition below if needed
-# mkfs.ext4 /dev/nvme0n1p3 
+# mkfs.ext4 /dev/nvme0n1p3 # usually I just reuse my existing partition
 
 #Mount root and home partition --Important--
 mount /dev/nvme0n1p2 /mnt
