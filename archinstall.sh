@@ -85,13 +85,14 @@ sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEF
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #last install of needed tools
-pacman -S --noconfirm --needed networkmanager nano git rustup alacritty firefox gnome ufw
+pacman -S --noconfirm --needed networkmanager nano git rustup alacritty firefox gnome ufw firejail
 # Basedevel  excluding Sudo
 pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
 #pacman -S --noconfirm --needed archlinux-keyring autoconf automake binutils bison debugedit fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed texinfo which
 # Rustup init (not sure but it was needed)
 rustup default stable
 pacman -S --noconfirm --needed btop
+firecfg
 
 #install paru
 git clone https://aur.archlinux.org/paru.git
