@@ -18,11 +18,13 @@ mount /dev/nvme0n1p2 /mnt
 mkdir /mnt/home
 mount /dev/nvme0n1p4 /mnt/home
 
-#Mount extra partitions WIP
-#mkdir /mnt/run/media/..
-#mount /dev/nvme1n1p2 /mnt/run/media/..
-#mkdir /mnt/run/media/..
-#mount /mnt/run/media/..
+#Mount extra partitions WIP/Tetsing
+#mkdir /mnt/mnt/Main
+#mount /dev/nvme0n1p4 /mnt/mnt/Main
+#mkdir /mnt/mnt/Win
+#mount /dev/nvme0n1p2 /mnt/mnt/Win
+#mkdir /mnt/mnt/Work
+#mount /dev/nvme1n1p2/ /mnt/mnt/Work
 
 #installing system
 pacstrap -K /mnt base linux linux-firmware
@@ -65,7 +67,7 @@ echo "set password for $username"
 passwd $username
 usermod -aG wheel,audio,video,storage $username
 
-#install following packages 
+#install following packages
 pacman -S --noconfirm doas grub efibootmgr os-prober dosfstools mtools
 echo "permit $username as root" > /etc/doas.conf
 mkdir /boot/EFI
@@ -79,15 +81,17 @@ grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 sed -i "s/^GRUB_GFXMODE=auto$/GRUB_GFXMODE=1920x1080/" /etc/default/grub
 sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
 sed -i 's/^GRUB_DEFAULT=0$/GRUB_DEFAULT="1>2"/' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet apparmor=1 security=apparmor"/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #last install of needed tools
 pacman -S --noconfirm --needed networkmanager nano git rustup alacritty firefox gnome ufw
 # Basedevel  excluding Sudo
-pacman -S --noconfirm --needed autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
+pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
+#pacman -S --noconfirm --needed archlinux-keyring autoconf automake binutils bison debugedit fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed texinfo which
 # Rustup init (not sure but it was needed)
 rustup default stable
-pacman -S --noconfirm --needed btop 
+pacman -S --noconfirm --needed btop
 
 #install paru
 git clone https://aur.archlinux.org/paru.git
