@@ -81,7 +81,7 @@ grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 sed -i "s/^GRUB_GFXMODE=auto$/GRUB_GFXMODE=1920x1080/" /etc/default/grub
 sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
 sed -i 's/^GRUB_DEFAULT=0$/GRUB_DEFAULT="1>2"/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet apparmor=1 security=apparmor"/' /etc/default/grub
+sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet apparmor=1 lsm=landlock,lockdown,yama,integrity,apparmor,bpf"/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #last install of needed tools
@@ -121,5 +121,8 @@ chmod +x /mnt/$scriptname3.sh
 grub-mkconfig -o /boot/grub/grub.cfg
 #mount /dev/nvme1n1p4 /mnt/home
 #download dotfiles wip
+
+
+paru apparmor.d-git
 
 '
