@@ -9,14 +9,14 @@ timedatectl set-ntp true
 
 #Filesystem formatting
 mkfs.fat -F 32 /dev/nvme0n1p1
-mkfs.ext4 /dev/nvme0n1p2
+mkfs.ext4 /dev/nvme0n1p4
 #home partition below if needed
 # mkfs.ext4 /dev/nvme0n1p3 # usually I just reuse my existing partition
 
 #Mount root and home partition --Important--
-mount /dev/nvme0n1p2 /mnt
+mount /dev/nvme0n1p4 /mnt
 mkdir /mnt/home
-mount /dev/nvme0n1p4 /mnt/home
+mount /dev/nvme0n1p2 /mnt/home
 
 #Mount extra partitions WIP/Tetsing
 #mkdir /mnt/mnt/Main
@@ -28,10 +28,10 @@ mount /dev/nvme0n1p4 /mnt/home
 
 #installing system
 pacstrap -K /mnt base linux linux-firmware
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >>/mnt/etc/fstab
 
 scriptname="Arch_InstallPart2"
-sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname.sh
+sed '1,/^#script2$/d' $(basename $0) >/mnt/$scriptname.sh
 chmod +x /mnt/$scriptname.sh
 arch-chroot /mnt ./$scriptname.sh
 exit
@@ -39,28 +39,28 @@ exit
 #script2
 pacman -S --noconfirm sed linux-lts
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
-sed -i "s/^#Color = 5$/Color/" /etc/pacman.conf
+sed -i "s/^#Color$/Color/" /etc/pacman.conf
 sed -i 's/^#MAKEFLAGS="-j2"$/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
 sed -i 's/^#VerbosePkgLists$/VerbosePkgLists/' /etc/pacman.conf
 
 # Set according to your region
 ln -sf /usr/share/zoneinfo/Europe/Dublin /etc/localtime
 hwclock --sytohc
-echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_GB.UTF-8 UTF-8" >>/etc/locale.gen
 locale-gen
 
-echo "insert hostname / pc name"
+echo "insert hostname / pc name, can also use capitals"
 read hostname
-echo $hostname > /etc/hostname
-echo "127.0.0.1		localhost" >> /etc/hosts
-echo "::1		        localhost" >> /etc/hosts
-echo "127.0.1.1		$hostname.localdomain $hostname" >> /etc/hosts
+echo $hostname >/etc/hostname
+echo "127.0.0.1		localhost" >>/etc/hosts
+echo "::1		        localhost" >>/etc/hosts
+echo "127.0.1.1		$hostname.localdomain $hostname" >>/etc/hosts
 mkinitcpio -P
 
 #adding user
-echo "set root password"
+echo "set root password and make sure numlock is enabled"
 passwd
-echo "set login username"
+echo "set login username. no capitals allowed"
 read username
 useradd -m $username
 echo "set password for $username"
@@ -69,7 +69,7 @@ usermod -aG wheel,audio,video,storage $username
 
 #install following packages
 pacman -S --noconfirm doas grub efibootmgr os-prober dosfstools mtools
-echo "permit $username as root" > /etc/doas.conf
+echo "permit $username as root" >/etc/doas.conf
 mkdir /boot/EFI
 mount /dev/nvme0n1p1 /boot/EFI
 
@@ -85,7 +85,7 @@ sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEF
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #last install of needed tools
-pacman -S --noconfirm --needed networkmanager nano git rustup alacritty firefox gnome ufw firejail
+pacman -S --noconfirm --needed networkmanager nano git git-lfs rustup alacritty firefox gnome ufw firejail
 # Basedevel  excluding Sudo
 pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
 #pacman -S --noconfirm --needed archlinux-keyring autoconf automake binutils bison debugedit fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed texinfo which
@@ -97,7 +97,7 @@ firecfg
 #install paru
 git clone https://aur.archlinux.org/paru.git
 cd paru
-makepkg -si
+runuser -unobody makepkg -si
 cd ..
 rm -rf paru
 sed -i "s/^#[bin]/[bin]/" /etc/paru.conf
@@ -108,8 +108,6 @@ systemctl enable gdm
 systemctl enable ufw
 ufw enable
 systemctl enable fstrim.timer
-
-
 
 : '
 
