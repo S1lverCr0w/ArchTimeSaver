@@ -8,15 +8,17 @@ loadkeys us #or uk etc
 timedatectl set-ntp true
 
 #Filesystem formatting
+rootpart="/dev/nvme0n1p4"
+homepart="/dev/nvme0n1p2"
 mkfs.fat -F 32 /dev/nvme0n1p1
-mkfs.ext4 /dev/nvme0n1p4
+mkfs.ext4 $rootpart
 #home partition below if needed
 # mkfs.ext4 /dev/nvme0n1p3 # usually I just reuse my existing partition
 
 #Mount root and home partition --Important--
-mount /dev/nvme0n1p4 /mnt
+mount $rootpart /mnt
 mkdir /mnt/home
-mount /dev/nvme0n1p2 /mnt/home
+mount $homepart /mnt/home
 
 #Mount extra partitions WIP/Tetsing
 #mkdir /mnt/mnt/Main
@@ -75,7 +77,7 @@ mount /dev/nvme0n1p1 /boot/EFI
 
 #for windows dualboot only
 mkdir /boot/WINDOWS
-mount /dev/nvme1n1p3 /boot/WINDOWS
+mount /dev/nvme2n1p5 /boot/WINDOWS
 
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 sed -i "s/^GRUB_GFXMODE=auto$/GRUB_GFXMODE=1920x1080/" /etc/default/grub
