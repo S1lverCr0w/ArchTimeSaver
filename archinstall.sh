@@ -45,6 +45,7 @@ sed -i "s/^#Color$/Color/" /etc/pacman.conf
 sed -i 's/^#MAKEFLAGS="-j2"$/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
 sed -i 's/^#VerbosePkgLists$/VerbosePkgLists/' /etc/pacman.conf
 
+
 # Set according to your region
 ln -sf /usr/share/zoneinfo/Europe/Dublin /etc/localtime
 hwclock --sytohc
@@ -86,11 +87,15 @@ sed -i 's/^GRUB_DEFAULT=0$/GRUB_DEFAULT="1>2"/' /etc/default/grub
 sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet apparmor=1 lsm=landlock,lockdown,yama,integrity,apparmor,bpf"/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
+#install nvim and clipboard manager to make copy/paste from/to sys clipboard
+pacman -S --noconfirm nvim xclip
 #last install of needed tools
 pacman -S --noconfirm --needed networkmanager nano git git-lfs rustup alacritty firefox gnome ufw firejail
 # Basedevel  excluding Sudo
 pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
 #pacman -S --noconfirm --needed archlinux-keyring autoconf automake binutils bison debugedit fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed texinfo which
+#add japanese chinese font support 
+pacman -S --noconfirm wqy-zenhei
 # Rustup init (not sure but it was needed)
 rustup default stable
 pacman -S --noconfirm --needed btop
