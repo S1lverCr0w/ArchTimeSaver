@@ -98,7 +98,7 @@ pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debuged
 pacman -S --noconfirm wqy-zenhei ibus-libpinyin
 # Rustup init (not sure but it was needed)
 rustup default stable
-pacman -S --noconfirm --needed btop
+pacman -S --noconfirm --needed btop man-db
 firecfg
 
 #install paru
