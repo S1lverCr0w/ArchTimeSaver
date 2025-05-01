@@ -84,7 +84,7 @@ grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 sed -i "s/^GRUB_GFXMODE=auto$/GRUB_GFXMODE=1920x1080/" /etc/default/grub
 sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
 sed -i 's/^GRUB_DEFAULT=0$/GRUB_DEFAULT="1>2"/' /etc/default/grub
-sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet apparmor=1 lsm=landlock,lockdown,yama,integrity,apparmor,bpf"/' /etc/default/grub
+# sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet apparmor=1 lsm=landlock,lockdown,yama,integrity,apparmor,bpf"/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #install nvim and clipboard manager to make copy/paste from/to sys clipboard
@@ -99,7 +99,7 @@ pacman -S --noconfirm wqy-zenhei ibus-libpinyin
 # Rustup init (not sure but it was needed)
 rustup default stable
 pacman -S --noconfirm --needed btop man-db
-firecfg
+# firecfg
 
 #install paru
 sed -i "s/^COMPRESSZST=(zstd -c -T0 --ultra -20 -)/COMPRESSZST=(zstd -c -T0 --fast -)/" /etc/makepkg.conf
