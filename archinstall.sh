@@ -95,10 +95,11 @@ pacman -S --noconfirm --needed networkmanager nano git git-lfs rustup alacritty 
 pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
 #pacman -S --noconfirm --needed archlinux-keyring autoconf automake binutils bison debugedit fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed texinfo which
 #add japanese chinese font support 
-pacman -S --noconfirm wqy-zenhei ibus-libpinyin
+pacman -S --noconfirm wqy-zenhei ibus-libpinyin noto-fonts-cjk
 # Rustup init (not sure but it was needed)
 rustup default stable
 pacman -S --noconfirm --needed btop man-db
+journalctl --vacuum-time=7d #keep logs only for 7 days
 # firecfg
 
 #install paru
