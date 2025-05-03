@@ -73,6 +73,8 @@ usermod -aG wheel,audio,video,storage $username
 #install following packages
 pacman -S --noconfirm doas grub efibootmgr os-prober dosfstools mtools
 echo "permit $username as root" >/etc/doas.conf
+#sudoers file
+sed -i "s/^# %wheel ALL=(ALL:ALL) ALL$/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
 mkdir /boot/EFI
 mount /dev/nvme0n1p1 /boot/EFI
 
@@ -91,8 +93,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --noconfirm nvim xclip
 #last install of needed tools
 pacman -S --noconfirm --needed networkmanager nano git git-lfs rustup alacritty firefox gnome ufw firejail
+pacman -S --noconfirm --needed base-devel
 # Basedevel  excluding Sudo
-pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
+#pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
 #pacman -S --noconfirm --needed archlinux-keyring autoconf automake binutils bison debugedit fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed texinfo which
 #add japanese chinese font support 
 pacman -S --noconfirm wqy-zenhei ibus-libpinyin noto-fonts-cjk
@@ -109,8 +112,8 @@ cd paru
 runuser -unobody makepkg -si
 cd ..
 rm -rf paru
-sed -i "s/^#[bin]/[bin]/" /etc/paru.conf
-sed -i "s/^#Sudo/Sudo/" /etc/paru.conf
+#sed -i "s/^#[bin]/[bin]/" /etc/paru.conf
+#sed -i "s/^#Sudo/Sudo/" /etc/paru.conf
 
 systemctl enable NetworkManager
 systemctl enable gdm
