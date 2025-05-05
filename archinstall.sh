@@ -90,10 +90,11 @@ sed -i 's/^GRUB_DEFAULT=0$/GRUB_DEFAULT="1>2"/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #install nvim and clipboard manager to make copy/paste from/to sys clipboard
-pacman -S --noconfirm nvim xclip
+pacman -S --noconfirm nvim ed vi vim xclip wl-clipboard
 #last install of needed tools
-pacman -S --noconfirm --needed networkmanager nano git git-lfs rustup alacritty firefox gnome ufw firejail
 pacman -S --noconfirm --needed base-devel
+pacman -S --noconfirm --needed networkmanager nano git git-lfs rustup alacritty firefox ufw firejail
+pacman -S --noconfirm --needed gnome # de / wm
 # Basedevel  excluding Sudo
 #pacman -S --noconfirm --needed archlinux-keyring autoconf automake bison debugedit flex gc gcc groff guile libisl m4 make patch pkgconf texinfo which
 #pacman -S --noconfirm --needed archlinux-keyring autoconf automake binutils bison debugedit fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed texinfo which
@@ -101,8 +102,8 @@ pacman -S --noconfirm --needed base-devel
 pacman -S --noconfirm wqy-zenhei ibus-libpinyin noto-fonts-cjk
 # Rustup init (not sure but it was needed)
 rustup default stable
-pacman -S --noconfirm --needed btop man-db
-journalctl --vacuum-time=7d #keep logs only for 7 days
+pacman -S --noconfirm --needed btop man-db tldr wikiman
+journalctl --vacuum-time=14d #keep logs only for 14 days
 # firecfg
 
 #install paru
@@ -122,6 +123,8 @@ ufw enable
 systemctl enable fstrim.timer
 
 : '
+
+#TODO: post install script etc:
 
 scriptname3="Arch_InstallPart3" # WIP
 sed '1,/^#script2$/d' `basename $0` > /mnt/$scriptname3.sh
