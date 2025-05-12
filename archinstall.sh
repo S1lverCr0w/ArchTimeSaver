@@ -72,7 +72,7 @@ usermod -aG wheel,audio,video,storage $username
 
 #install following packages
 pacman -S --noconfirm doas grub efibootmgr os-prober dosfstools mtools
-echo "permit $username as root" >/etc/doas.conf
+echo "permit persist $username as root" >/etc/doas.conf
 #sudoers file
 sed -i "s/^# %wheel ALL=(ALL:ALL) ALL$/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
 mkdir /boot/EFI
