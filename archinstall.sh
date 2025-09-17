@@ -122,6 +122,9 @@ systemctl enable ufw
 ufw enable
 systemctl enable fstrim.timer
 
+# timer to wait before shutdown if a program is running
+sed -i "s/^#DefaultTimeoutStopSec=90s$/DefaultTimeoutStopSec=20s/" /etc/systemd/system.conf
+
 : '
 
 #TODO: post install script etc:
