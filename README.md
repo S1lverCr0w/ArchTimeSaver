@@ -1,21 +1,15 @@
 # ArchTimeSaver
 A very small and fast Arch Linux (UEFI) installer. (about 2min install time including user input)
+
 \
-\
-\
-\
-I beleive the script is readable and very efficient.
-It installs the base system and Gnome DE.
+I beleive the script is readable and very efficient. It installs the base system and Gnome DE.
 > [!CAUTION]
 > Partitioning is left to the user before running the script, as partitioning is based on personal preference.
+>> Also make sure to edit the script with the apropriate partition paths before running it.
 
 \
 \
-Also make sure to edit the script with the apropriate partition paths before running it.
-\
-\
-\
-The scrip is oriented on dualbooting a second OS (Windows in this case).
+The script is oriented on dualbooting a second OS (Windows in this case).
 \
 \
 \
@@ -35,7 +29,5 @@ To run the script:
 ```
 \
 \
-\
-\
-Some code was borrowed from 
+Some code was borrowed from
 https://github.com/Bugswriter/arch-linux-magic
