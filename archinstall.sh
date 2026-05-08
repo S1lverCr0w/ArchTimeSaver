@@ -102,7 +102,7 @@ pacman -S --noconfirm --needed gnome # de / wm
 pacman -S --noconfirm wqy-zenhei ibus-libpinyin noto-fonts-cjk
 # Rustup init (not sure but it was needed)
 rustup default stable
-pacman -S --noconfirm --needed btop man-db tldr wikiman
+pacman -S --noconfirm --needed btop man-db tldr wikiman bc
 journalctl --vacuum-time=14d #keep logs only for 14 days
 # firecfg
 
