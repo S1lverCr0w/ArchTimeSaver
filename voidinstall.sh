@@ -64,14 +64,35 @@ usermod -aG wheel,audio,video,storage $usernm
 
 # # install
 xbps-install -S vim
-xbps-install -S opendoas
 
-xbps-install -S grub-x86_64-efi
+# # install and configure opendoas
+xbps-install -S opendoas
 echo "permit persist $username as root" >/etc/doas.conf
 sed -i "s/^# %wheel ALL=(ALL:ALL) ALL$/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers.dist
+
+xbps-install -S grub-x86_64-efi
 # mkdir /boot/EFI
 # mount /dev/nvme0n1p3 /boot/EFI
 
 #for windows dualboot only
 mkdir /boot/WINDOWS
 mount /dev/nvme0n1p1 /boot/WINDOWS
+
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+# sed -i "s/^GRUB_GFXMODE=auto$/GRUB_GFXMODE=1920x1080/" /etc/default/grub
+# sed -i "s/^#GRUB_DISABLE_OS_PROBER=false$/GRUB_DISABLE_OS_PROBER=false/" /etc/default/grub
+echo "GRUB_DISABLE_OS_PROBER=false/" >> /etc/default/grub
+# sed -i 's/^GRUB_DEFAULT=0$/GRUB_DEFAULT="1>2"/' /etc/default/grub
+# sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"$/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet apparmor=1 lsm=landlock,lockdown,yama,integrity,apparmor,bpf"/' /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# # network config
+xbps-install -S networkmanager
+ln -s /etc/sv/dbus/ /etc/runit/runsvdir/default/
+ln -s /etc/sv/NetworkManager/ /etc/runit/runsvdir/default/
+
+xbps-reconfigure -fa
+
+# exit
+# umount -R /mnt
+# shutdown -r now
