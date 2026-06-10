@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # # before running the script
+# bash
 # # set keyboard layout to uk
 # loadkey uk
 
